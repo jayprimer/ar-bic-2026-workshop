@@ -73,6 +73,61 @@ except Exception as e:
     print("Not running in Colab or userdata unavailable; set OPENAI_API_KEY yourself.")
     print("Detail:", e)""")
 
+DEPS = code("""\
+# Install dependencies. Idempotent (pip skips already-installed; npm re-link is cheap).
+# liteparse only matters for Stage 4 but installing it everywhere keeps each
+# notebook self-contained, which is the whole point of re-running this cell.
+!pip install -q -r requirements.txt
+!npm install -g @llamaindex/liteparse 2>&1 | tail -3""")
+
+STAGE_CONFIGS = code("""\
+# Copy bundle-shipped configs into the directories each stage script expects.
+# Each stage's input.txt / criteria.txt / schema.json lives under configs/
+# in the repo; the actual scripts read them relative to cwd.
+import os, shutil
+os.makedirs("stage_01", exist_ok=True)
+os.makedirs("stage_02", exist_ok=True)
+shutil.copy("configs/stage_01_input.txt",    "stage_01/input.txt")
+shutil.copy("configs/stage_02_input.txt",    "stage_02/input.txt")
+shutil.copy("configs/stage_02_criteria.txt", "stage_02/criteria.txt")
+shutil.copy("configs/schema.json",           "schema.json")
+print("configs staged")""")
+
+
+def load_prior_outputs_cell(stage_num):
+    """Cell that copies reference_outputs for all stages BEFORE stage_num.
+
+    A participant who opens stage_N directly in a fresh Colab runtime needs
+    stages 1..N-1's outputs on disk so this stage has inputs to work with.
+    The canonical reference run is used; if the participant later re-does
+    an earlier stage in this same runtime, their output will overwrite the
+    reference.
+    """
+    if stage_num <= 1:
+        return None
+    return code(f"""\
+# Load prior stages' reference outputs as inputs for Stage {stage_num}.
+# Each Colab notebook opens with a fresh runtime, so any work done in a
+# Stage <{stage_num} notebook in a DIFFERENT runtime is not visible here.
+# This cell makes the stage runnable in isolation against the canonical
+# reference run. If you re-run an earlier stage IN THIS runtime, your
+# output replaces these reference files (cwd is /content/...).
+import os, shutil, glob
+for n in range(1, {stage_num}):
+    dst = f"stage_0{{n}}/data"
+    src = f"reference_outputs/stage_0{{n}}/data"
+    if not os.path.isdir(src):
+        continue
+    os.makedirs(dst, exist_ok=True)
+    # Only seed if the participant hasn't produced anything for this stage
+    # in the current runtime — otherwise we'd clobber their work.
+    if any(os.scandir(dst)):
+        print(f"skip stage_0{{n}} — already has files (keeping your work)")
+        continue
+    for src_file in glob.glob(f"{{src}}/*"):
+        shutil.copy(src_file, dst)
+    print(f"seeded stage_0{{n}}/data from reference_outputs")""")
+
 
 # ---- Stage 0: setup -----------------------------------------------------
 
@@ -140,10 +195,42 @@ def stage_notebook(num, name, spec, gotchas, seed, verify, eval_cmd,
            "below give you the spec, the seed, the gotchas, and a "
            "verification step. The implementation itself is yours to write."),
 
-        md("## 1. Bootstrap (clone + cd if not already)"),
-        BOOTSTRAP,
-        KEY_BRIDGE if num in (2, 5) else code("# (no API key needed for this stage)"),
+        md("## 1. Setup\n\n"
+           "Every cell in this section is idempotent and safe to re-run. "
+           "If you opened this notebook fresh (without running Stage 0 "
+           "first in the same runtime), run all of them now."),
 
+        md("### 1a. Clone the repo and `cd` into it"),
+        BOOTSTRAP,
+
+        md("### 1b. Install dependencies\n\n"
+           "Python (`openai`) and the Node CLI `@llamaindex/liteparse`. "
+           "First run takes ~30s; re-runs are near-instant."),
+        DEPS,
+
+        md(("### 1c. Bridge your OpenAI key\n\n"
+            "Add `OPENAI_API_KEY` in Colab's Secrets panel (key icon, left "
+            "sidebar) and toggle notebook access first.")
+           if num in (2, 5) else
+           "### 1c. (no API key needed for this stage)"),
+        KEY_BRIDGE if num in (2, 5) else code("# This stage doesn't call the OpenAI API."),
+
+        md("### 1d. Stage the bundle-shipped configs"),
+        STAGE_CONFIGS,
+    ]
+    prior = load_prior_outputs_cell(num)
+    if prior:
+        cells += [
+            md(f"### 1e. Load prior stages' reference outputs\n\n"
+               f"Stage {num} reads outputs from earlier stages. Each Colab "
+               "notebook gets its own runtime, so work done in another "
+               "notebook is not visible here. This cell seeds "
+               f"`stage_01..stage_{num-1:02d}/data/` from the canonical "
+               f"reference run so Stage {num} has inputs to work with."),
+            prior,
+        ]
+
+    cells += [
         md(f"## 2. Spec — paste this into Gemini\n\n"
            "Open the Gemini side panel in Colab (sparkles icon, top right) "
            "and paste the block below as your prompt. Then iterate.\n\n"

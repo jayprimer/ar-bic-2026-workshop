@@ -13,7 +13,7 @@ whether your output matches the contract.
 
 | Stage | Notebook |
 |---|---|
-| 0 — setup | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jayprimer/ar-bic-2026-workshop/blob/main/notebooks/stage_00_setup.ipynb) |
+| 0 — setup (optional tour) | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jayprimer/ar-bic-2026-workshop/blob/main/notebooks/stage_00_setup.ipynb) |
 | 1 — search | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jayprimer/ar-bic-2026-workshop/blob/main/notebooks/stage_01_search.ipynb) |
 | 2 — screen | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jayprimer/ar-bic-2026-workshop/blob/main/notebooks/stage_02_screen.ipynb) |
 | 3 — download fulltext | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jayprimer/ar-bic-2026-workshop/blob/main/notebooks/stage_03_download_fulltext.ipynb) |
@@ -21,7 +21,13 @@ whether your output matches the contract.
 | 5 — extract | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jayprimer/ar-bic-2026-workshop/blob/main/notebooks/stage_05_extract.ipynb) |
 | 6 — table | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jayprimer/ar-bic-2026-workshop/blob/main/notebooks/stage_06_table.ipynb) |
 
-Start with Stage 0.
+**You can jump straight to any stage** — each notebook is fully
+self-bootstrapping. Section 1 of every stage notebook clones the repo,
+installs dependencies, bridges your OpenAI key, stages the configs, and
+seeds the previous stages' outputs from the canonical reference run.
+
+Stage 0 is optional — useful as a guided tour of what setup does, but
+not a prerequisite.
 
 ## What you'll need
 
@@ -46,7 +52,9 @@ requirements.txt     ← openai (Stage 4 also needs the liteparse Node CLI)
 
 Every stage notebook (1–6) has the same eight sections:
 
-1. **Bootstrap** — clone the repo + cd if not already done.
+1. **Setup (1a–1e)** — clone + cd, install deps, bridge OpenAI key,
+   stage configs, and seed previous stages' outputs from the
+   canonical reference run. Every cell is idempotent.
 2. **Spec card** — the exact contract for this stage. Paste it as
    your first prompt to Gemini.
 3. **Gotchas** — things Gemini will not know. Copy them inline when
