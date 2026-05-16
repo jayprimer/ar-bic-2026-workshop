@@ -1,2 +1,0 @@
-openai>=1.40
-# Stage 4 also needs liteparse (Node CLI): `npm i -g @llamaindex/liteparse`

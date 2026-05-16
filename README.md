@@ -1,104 +1,64 @@
-# ar-bic-2026 — mAbs animal-study pipeline workshop
+# ar-bic-2026 workshop — mAbs animal-study pipeline
 
-Re-create a 6-stage literature-mining pipeline in Google Colab with
-help from Colab's Gemini assistant. The pipeline turns a PubMed query
-into a structured table of monoclonal-antibody animal-study findings.
+You'll build a six-stage pipeline that turns a PubMed query into a
+structured CSV of monoclonal-antibody (mAb) animal-study findings.
+You write each stage with help from Colab's built-in **Gemini** panel.
 
-Each stage ships as a Colab notebook with a **spec**, a **seed**, and a
-**list of gotchas Gemini won't know**. The implementation itself is
-yours to write. An eval grader at the end of each stage tells you
-whether your output matches the contract.
+## What each stage does
 
-## Open in Colab
+| File | What you implement | Open in Colab |
+|---|---|---|
+| `stage_1.ipynb` | PubMed esearch + efetch — query → metadata | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jayprimer/ar-bic-2026-workshop/blob/main/stage_1.ipynb) |
+| `stage_2.ipynb` | Screen abstracts include / exclude (OpenAI or regex fallback) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jayprimer/ar-bic-2026-workshop/blob/main/stage_2.ipynb) |
+| `stage_3.ipynb` | Download OA fulltext (PDF / JATS XML / metadata fallback) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jayprimer/ar-bic-2026-workshop/blob/main/stage_3.ipynb) |
+| `stage_4.ipynb` | Convert PDF / XML / metadata → uniform Markdown | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jayprimer/ar-bic-2026-workshop/blob/main/stage_4.ipynb) |
+| `stage_5.ipynb` | LLM-extract structured JSON matching the contract | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jayprimer/ar-bic-2026-workshop/blob/main/stage_5.ipynb) |
+| `stage_6.ipynb` | Flatten to a CSV — one row per (paper × animal_arm) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jayprimer/ar-bic-2026-workshop/blob/main/stage_6.ipynb) |
 
-| Stage | Notebook |
-|---|---|
-| 0 — setup (optional tour) | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jayprimer/ar-bic-2026-workshop/blob/main/notebooks/stage_00_setup.ipynb) |
-| 1 — search | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jayprimer/ar-bic-2026-workshop/blob/main/notebooks/stage_01_search.ipynb) |
-| 2 — screen | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jayprimer/ar-bic-2026-workshop/blob/main/notebooks/stage_02_screen.ipynb) |
-| 3 — download fulltext | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jayprimer/ar-bic-2026-workshop/blob/main/notebooks/stage_03_download_fulltext.ipynb) |
-| 4 — pdf to text | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jayprimer/ar-bic-2026-workshop/blob/main/notebooks/stage_04_pdf_to_text.ipynb) |
-| 5 — extract | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jayprimer/ar-bic-2026-workshop/blob/main/notebooks/stage_05_extract.ipynb) |
-| 6 — table | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jayprimer/ar-bic-2026-workshop/blob/main/notebooks/stage_06_table.ipynb) |
+Each notebook is **standalone**: it already runs every stage *before*
+the one you're writing. You only write Stage N; everything earlier is
+pre-built so you can focus.
 
-**You can jump straight to any stage** — each notebook is fully
-self-bootstrapping. Section 1 of every stage notebook clones the repo,
-installs dependencies, bridges your OpenAI key, stages the configs, and
-seeds the previous stages' outputs from the canonical reference run.
-
-Stage 0 is optional — useful as a guided tour of what setup does, but
-not a prerequisite.
-
-## What you'll need
+## Prerequisites
 
 - A Google account (for Colab).
-- An OpenAI API key for Stages 2, 5, and the LLM-grader evals. The
-  full end-to-end run costs **well under $0.20**. (Stages 1, 3, 4, 6
-  and the script-only evals need no key.)
-- Patience for the occasional NCBI flake — retry the cell.
+- An OpenAI API key (for Stages 2, 5, and a few LLM evals). About
+  **$0.20** of credits covers a full end-to-end run.
 
-## Layout
+## How a stage works
 
-```
-notebooks/           ← one .ipynb per stage; the workshop deliverable
-prompts/             ← guidance for driving Gemini effectively
-configs/             ← bundle-shipped editable config (query, criteria, schema)
-eval/                ← per-stage graders; runs on YOUR output
-reference_outputs/   ← archived canonical run, for "skip this stage" fallback
-requirements.txt     ← openai (Stage 4 also needs the liteparse Node CLI)
-```
+1. Click the "Open in Colab" badge for the stage you're on.
+2. In Colab Secrets (sidebar, key icon), add a secret named
+   `OPENAI_API_KEY` and toggle "Notebook access" on.
+3. Run cells from the top. Everything before "## Stage N" sets up the
+   environment and runs earlier stages — every cell should succeed.
+4. Read the **"### Your task — write Stage N"** cell. The cell
+   immediately below it is the prompt for Gemini, nothing else.
+5. Open Colab's **Gemini** panel (sparkle icon, top-right of the
+   toolbar). On the prompt cell, click the cell menu (three dots) →
+   *Copy cell content*, then paste into Gemini's chat box.
+6. Review the code Gemini gives you. Paste it into the empty code
+   cell directly below the prompt. Run it.
+7. Run the eval cells below. If they pass, you're done with this
+   stage; if they fail, iterate with Gemini (paste the failure
+   message back into the chat).
 
-## How a stage notebook is structured
+## Tips
 
-Every stage notebook (1–6) has the same eight sections:
+- The eval cells are your safety net — run them after every change.
+- Gemini sometimes hallucinates API shapes (e.g. invented OpenAI
+  parameters, wrong NCBI endpoint paths). If a stage fails with an
+  obscure error, paste the traceback back into Gemini.
+- Stage 5 caches per-paper extractions to disk, so re-running won't
+  re-bill the OpenAI calls already made.
+- Need a clean rerun? `!rm -rf stage_*/data stage_*/eval` from a cell.
 
-1. **Setup (1a–1e)** — clone + cd, install deps, bridge OpenAI key,
-   stage configs, and seed previous stages' outputs from the
-   canonical reference run. Every cell is idempotent.
-2. **Spec card** — the exact contract for this stage. Paste it as
-   your first prompt to Gemini.
-3. **Gotchas** — things Gemini will not know. Copy them inline when
-   needed.
-4. **Seed** — a few lines of imports + path setup to anchor Gemini.
-5. **Your implementation** — drive Gemini to fill this in.
-6. **Verify** — assertions on the output file.
-7. **Eval** — the per-stage grader writes a score under
-   `stage_NN/eval/`.
-8. **Skip this stage** — emergency copy from `reference_outputs/`
-   so the next stage's notebook can still run.
-
-See `prompts/gemini_intro.md` for tips on driving the Gemini side panel.
-
-## Costs
-
-Order-of-magnitude estimates for the canonical N=30 query:
-
-- Stage 2 (gpt-5.4-nano, ~30 abstracts): ~$0.02
-- Stage 5 (gpt-5.4-nano, ~8 papers): ~$0.05–0.10
-- eval_02_llm + eval_05_llm: ~$0.12
-
-Total: well under $0.20 per end-to-end run. A $5 prepaid card runs the
-whole workshop ~25 times.
-
-## Pipeline overview
+## Files
 
 ```
-Stage 1 search             PubMed esearch + efetch → pmids.json
-Stage 2 screen             abstracts → include/exclude verdict + rationale
-Stage 3 download fulltext  PMCID → OA PDF / JATS XML / metadata fallback
-Stage 4 pdf to text        PDF + XML + metadata → uniform .md
-Stage 5 extract            .md + schema → per-paper extraction JSON
-Stage 6 table              flatten per (paper × animal_arm) → CSV
+stage_1.ipynb   stage_2.ipynb   stage_3.ipynb
+stage_4.ipynb   stage_5.ipynb   stage_6.ipynb
+README.md
 ```
 
-## License
-
-MIT — see `LICENSE`.
-
-## Provenance
-
-This workshop bundle is derived from the [`docs/exercise/mAbs/track_B`
-directory](https://github.com/jayprimer/ar-bic-2026/tree/main/docs/exercise/mAbs/track_B)
-of the `ar-bic-2026` repo. The canonical reference run archived under
-`reference_outputs/` was produced May 2026 against a 2025–2026 PubMed
-query.
+Nothing else; everything you need is inside the notebooks.
