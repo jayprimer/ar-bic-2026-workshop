@@ -1,0 +1,20 @@
+{
+  "pmid": "41947007",
+  "title": "Impact of High Mannose Glyco Pairing on the Pharmacokinetics of a Therapeutic monoclonal antibody using an Immunocapture-LC/MS Intact Assay.",
+  "abstract": "Many biotherapeutics, such as monoclonal antibodies (mAbs), consist of diverse glycoforms that can influence pharmacokinetic (PK) properties upon administration to animals and humans. Among these, N-glycosylation with high mannose (HM) at asparagin-297 is known to increase systemic clearance, shorten half-life, and reduce systemic exposure of mAbs. Therefore, the HM level is closely monitored and controlled within defined ranges during mAb production. However, the impact of glyco pairing (complex, asymmetrical HM and symmetrical HM) has not been previously investigated. Here, we present the first such study to assess the effects of HM glyco pairing on the PK of a therapeutic mAb. We developed a novel immunocapture-LC/MS intact analysis to distinguish and quantify different HM glyco pairings in rat plasma. The mAb was purified and enriched from the rat plasma using a biotinylated anti-human Fc Ab immobilized on streptavidin magnetic beads. Upon Endo-F3 enzymatic digestion, the purified samples yielded three N-glyco paired species: complex, asymmetrical HM and symmetrical HM, which were quantified, and their respective PK parameters were subsequently determined. There was a 2.4-fold and 4-fold increase in clearance for the asymmetrical HM and symmetrical HM compared to those of the complex, respectively. These in vivo findings were consistent with mannose receptor binding affinities of the glyco pair species. Our study underscores the importance of monitoring not only the high mannose levels but also the glyco pairing constructs during the mAb manufacturing process.",
+  "authors": [
+    "Wei Wei",
+    "Chen Lin-Zhi",
+    "Baumeister Julia",
+    "Meudt Maximilian",
+    "Altemus Aimee",
+    "Teitelbaum Aaron M",
+    "Higel Fabian"
+  ],
+  "first_author": "Wei Wei",
+  "journal": "Analytical chemistry",
+  "year": 2026,
+  "pub_types": [
+    "Journal Article"
+  ]
+}

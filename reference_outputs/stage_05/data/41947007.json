@@ -1,0 +1,20 @@
+{
+  "pmid": "41947007",
+  "first_author": "Wei Wei",
+  "year": 2026,
+  "mab_name": null,
+  "target": "high mannose glyco pairing at N-glycosylation site (Asn-297) affecting pharmacokinetics via mannose receptor binding",
+  "format": "IgG | null",
+  "development_stage": "IND-enabling",
+  "regulatory_context": "none-stated",
+  "threeRs_mentioned": false,
+  "author_reduction_recommendation": null,
+  "animal_arms": [],
+  "nams_discussed": [
+    {
+      "method": "immunocapture-LC/MS intact assay to distinguish and quantify HM glyco pairings in rat plasma",
+      "context": "limitation discussion"
+    }
+  ],
+  "source_type": "abstract-only"
+}

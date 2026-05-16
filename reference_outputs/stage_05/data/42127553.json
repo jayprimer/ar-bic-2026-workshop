@@ -1,0 +1,41 @@
+{
+  "pmid": "42127553",
+  "first_author": "Aoyama Muneo",
+  "year": 2026,
+  "mab_name": "etalanetug (E2814)",
+  "target": "tau",
+  "format": "IgG1",
+  "development_stage": "IND-enabling",
+  "regulatory_context": "IND-supporting",
+  "threeRs_mentioned": false,
+  "author_reduction_recommendation": null,
+  "animal_arms": [
+    {
+      "species": "rat",
+      "n_animals": null,
+      "study_type": "PK",
+      "duration_days": null,
+      "species_justification": "regulatory expectation",
+      "cross_reactivity_evidence": "not addressed",
+      "endpoints_unique_to_animal": "biphasic serum concentration decline after IV 30 mg/kg; half-life 150-193 h",
+      "concurrent_nam": null
+    },
+    {
+      "species": "cynomolgus",
+      "n_animals": null,
+      "study_type": "PK",
+      "duration_days": null,
+      "species_justification": "regulatory expectation",
+      "cross_reactivity_evidence": "not addressed",
+      "endpoints_unique_to_animal": "biphasic serum concentration decline after IV 30 mg/kg; half-life 150-193 h",
+      "concurrent_nam": null
+    }
+  ],
+  "nams_discussed": [
+    {
+      "method": "validated ligand-binding assay (LBA) for quantifying etalanetug in rat and monkey serum",
+      "context": "future work"
+    }
+  ],
+  "source_type": "abstract-only"
+}

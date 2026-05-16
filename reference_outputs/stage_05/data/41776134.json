@@ -1,0 +1,31 @@
+{
+  "pmid": "41776134",
+  "first_author": "Ichikawa Takuya",
+  "year": 2026,
+  "mab_name": null,
+  "target": "not stated",
+  "format": "IgG1",
+  "development_stage": "lead optimization",
+  "regulatory_context": "none-stated",
+  "threeRs_mentioned": true,
+  "author_reduction_recommendation": "The authors recommend using their cassette-dosing LC-MS/MS PK method with engineered alanine-modified IgG1 antibodies to reduce animal use and development costs while maintaining comparable PK results.",
+  "animal_arms": [
+    {
+      "species": "mouse",
+      "n_animals": null,
+      "study_type": "PK",
+      "duration_days": null,
+      "species_justification": "not stated",
+      "cross_reactivity_evidence": "not addressed",
+      "endpoints_unique_to_animal": "t1/2, C0, AUClast, Vss after intravenous administration",
+      "concurrent_nam": null
+    }
+  ],
+  "nams_discussed": [
+    {
+      "method": "cassette-dosing pharmacokinetic evaluation combined with multiplex LC-MS/MS using alanine mutations/insertions in the IgG1 CH1 constant region",
+      "context": "limitation discussion"
+    }
+  ],
+  "source_type": "abstract-only"
+}

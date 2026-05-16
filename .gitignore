@@ -1,0 +1,22 @@
+# Stage outputs produced by participants — not part of the workshop bundle.
+stage_01/data/
+stage_02/data/
+stage_03/data/
+stage_04/data/
+stage_05/data/
+stage_06/data/
+stage_*/eval/
+
+# Bundle-shipped configs get copied into stage_NN/ at Stage 0 setup;
+# don't commit the staged copies. Patterns are anchored to repo root
+# so configs/schema.json (the source of truth) isn't excluded.
+/stage_01/input.txt
+/stage_02/input.txt
+/stage_02/criteria.txt
+/schema.json
+
+# Python / Colab cruft
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store

@@ -1,0 +1,46 @@
+{
+  "pmid": "41828601",
+  "first_author": "Wymann Sandra",
+  "year": 2026,
+  "mab_name": "CSL305",
+  "target": "Complement C2 (classical/lectin pathway) and FcRn (neonatal Fc receptor) via engineered Fc YPY motif",
+  "format": "IgG4",
+  "development_stage": "IND-enabling",
+  "regulatory_context": "none-stated",
+  "threeRs_mentioned": false,
+  "author_reduction_recommendation": null,
+  "animal_arms": [
+    {
+      "species": "mouse",
+      "n_animals": 3,
+      "study_type": "PK",
+      "duration_days": 7,
+      "species_justification": "historical precedent",
+      "cross_reactivity_evidence": "not addressed",
+      "endpoints_unique_to_animal": "Plasma PK of CSL305 and WT anti-C2 mAbs after single IV dosing; endogenous mouse IgG levels (FcRn-mediated IgG reduction) measured by ELISA",
+      "concurrent_nam": null
+    },
+    {
+      "species": "mouse",
+      "n_animals": 3,
+      "study_type": "PK",
+      "duration_days": 7,
+      "species_justification": "regulatory expectation",
+      "cross_reactivity_evidence": "not addressed",
+      "endpoints_unique_to_animal": "Plasma PK of CSL305 and WT anti-C2 mAbs in human FcRn transgenic mice (32HOM); endogenous mouse IgG reduction measured by ELISA",
+      "concurrent_nam": null
+    },
+    {
+      "species": "cynomolgus",
+      "n_animals": 3,
+      "study_type": "PK",
+      "duration_days": 30,
+      "species_justification": "pharmacological relevance",
+      "cross_reactivity_evidence": "in-vitro binding shown",
+      "endpoints_unique_to_animal": "Single-dose IV PK/PD: total CSL305 concentrations by ELISA; endogenous IgG levels by ELISA; ex vivo CH50 complement classical pathway activity",
+      "concurrent_nam": null
+    }
+  ],
+  "nams_discussed": [],
+  "source_type": "fulltext"
+}

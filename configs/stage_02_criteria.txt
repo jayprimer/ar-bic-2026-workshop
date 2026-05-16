@@ -1,0 +1,23 @@
+Include: primary research papers (2025-2026) reporting at least one
+in-vivo mammalian study arm in support of monoclonal antibody (mAb)
+development. Eligible study arms include:
+  - pharmacokinetics (PK) or toxicokinetics
+  - single-dose or repeat-dose toxicology
+  - immunogenicity / anti-drug antibody (ADA) assessment
+  - tissue biodistribution
+  - tissue cross-reactivity confirmed in vivo
+
+Eligible species: mouse, rat, cynomolgus monkey, rhesus monkey, dog,
+rabbit, minipig.
+
+Exclude:
+  - reviews, meta-analyses, perspectives, commentaries, editorials
+  - papers reporting only in-vitro binding, cell-line, or PBMC work
+    with no in-vivo arm
+  - veterinary mAb studies (animal as patient, not as preclinical model)
+  - discovery-stage efficacy-only papers using mouse xenograft tumor
+    models with no PK/tox/immunogenicity arm (mouse xenograft efficacy
+    alone is not the reducible step we are studying)
+  - mAb-conjugate papers where the conjugate (radioligand, toxin) is
+    the primary subject and the antibody is incidental
+  - case reports of mAb adverse events in patients

@@ -1,0 +1,26 @@
+{
+  "pmid": "41833676",
+  "first_author": "Yesmin Sanjida",
+  "year": 2026,
+  "mab_name": "4713",
+  "target": "not stated",
+  "format": "other",
+  "development_stage": "clinical translation",
+  "regulatory_context": "none-stated",
+  "threeRs_mentioned": false,
+  "author_reduction_recommendation": null,
+  "animal_arms": [
+    {
+      "species": "mouse",
+      "n_animals": null,
+      "study_type": "immunogenicity",
+      "duration_days": null,
+      "species_justification": "not stated",
+      "cross_reactivity_evidence": "not addressed",
+      "endpoints_unique_to_animal": "anti-drug antibody (ADA) induction and assessment of function-blocking ADA; cytotoxicity against Raji cells",
+      "concurrent_nam": null
+    }
+  ],
+  "nams_discussed": [],
+  "source_type": "abstract-only"
+}
