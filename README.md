@@ -3,7 +3,7 @@
 Hands-on companion repo for the workshop. The morning session covers
 the shape of AI work — **input → AI → output → eval**, run as a loop,
 not a pipeline — and the eval hierarchy that makes the loop converge:
-**script** (deterministic, preferred) → **itemized T/F** → **rubric**
+**script** (deterministic, preferred) → **binary rubric** → **rubric scoring**
 (last resort). This repo is the afternoon: you build a worked example
 that uses that loop end-to-end.
 
